@@ -1,2 +1,11 @@
 # Spot_Counting
 Petri Dish Spot Detection and Counting Using Image Processing and Visualization Techniques
+This code is designed to analyze Petri dish images, aiming to detect and count individual spots, which could represent bacterial colonies or other samples. The approach involves several steps, starting with loading the input image and converting it to grayscale to simplify further processing. A binary threshold is then applied to the grayscale image, transforming it into a black-and-white mask where potential spots are highlighted.
+
+Next, the code identifies the largest contour in the image, which is assumed to correspond to the Petri dish's boundary. A mask is created based on this contour, and the image is isolated to include only the Petri dish region. The area within this mask is then cropped to focus the analysis on the relevant part of the image, removing any unnecessary background.
+
+The cropped image is preprocessed for spot detection by first converting it to grayscale again, then applying a Gaussian blur to reduce noise. Adaptive thresholding is used to enhance the features of the spots, followed by morphological operations (specifically opening) to clean up the binary mask and remove small artifacts. These steps help isolate the individual spots more effectively.
+
+The labeled connected components in the cleaned binary mask are then analyzed using the regionprops function from skimage.measure. This allows the program to extract properties of the detected regions, such as area. A size filter is applied to discard very small or very large regions, ensuring that only valid spots are counted.
+
+The number of valid spots is calculated, and contours are drawn around the detected spots to visually highlight them. The results are displayed using Matplotlib, with the original and processed images shown side by side for comparison. Additionally, the code integrates Napari to provide an interactive visualization. In Napari, the user can explore the original image, the cleaned mask, and the filtered spots. The centroids of the valid spots are also visualized as points, offering further insights into the distribution of the spots. This method provides a comprehensive solution for analyzing Petri dish images and counting spots accurately.
